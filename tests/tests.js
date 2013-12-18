@@ -4,6 +4,8 @@ var assertThrows = assert['throws'];
 
 require('../contains.js');
 
+Object.prototype[1] = 2; // try to break `arguments[1]`
+
 assertEquals(String.prototype.contains.length, 1);
 
 assertEquals('abc'.contains(), false);
