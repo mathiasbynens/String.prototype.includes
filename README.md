@@ -5,7 +5,7 @@ A robust & optimized ES3-compatible polyfill for [the `String.prototype.contains
 Other polyfills for `String.prototype.contains` are available:
 
 * <https://github.com/paulmillr/es6-shim/blob/d8c4ec246a15e7df55da60b7f9b745af84ca9021/es6-shim.js#L186-L190> by [Paul Miller](http://paulmillr.com/) (~~[fails some tests](https://github.com/paulmillr/es6-shim/issues/175)~~ passes all tests)
-* <https://github.com/google/traceur-compiler/blob/928cbdc9586ef2f74f612fde8f36c3370828a716/src/runtime/runtime.js#L102-L104> by Google (~~[fails a lot of tests](https://github.com/google/traceur-compiler/pull/556)~~ now uses this polyfill and passes all tests)
+* <https://github.com/google/traceur-compiler/blob/315bdad05d41de46d25337422d66686d63100d7a/src/runtime/polyfills/String.js#L68-L86> by Google (~~[fails a lot of tests](https://github.com/google/traceur-compiler/pull/556)~~ now uses this polyfill and passes all tests)
 
 ## Installation
 
