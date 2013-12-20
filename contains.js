@@ -3,7 +3,7 @@ if (!String.prototype.contains) {
 	(function() {
 		'use strict'; // needed to support `apply`/`call` with `undefined`/`null`
 		var indexOf = ''.indexOf;
-		String.prototype.contains = function(search) {
+		var contains = function(search) {
 			if (this == null) {
 				throw TypeError();
 			}
@@ -24,5 +24,14 @@ if (!String.prototype.contains) {
 			}
 			return indexOf.call(string, searchString, pos) != -1;
 		};
+		if (Object.defineProperty) {
+			Object.defineProperty(String.prototype, 'contains', {
+				'value': contains,
+				'configurable': true,
+				'writable': true
+			});
+		} else {
+			String.prototype.contains = contains;
+		}
 	}());
 }

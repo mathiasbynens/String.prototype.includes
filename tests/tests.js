@@ -7,6 +7,7 @@ require('../contains.js');
 Object.prototype[1] = 2; // try to break `arguments[1]`
 
 assertEquals(String.prototype.contains.length, 1);
+assertEquals(String.prototype.propertyIsEnumerable('contains'), false);
 
 assertEquals('abc'.contains(), false);
 assertEquals('aundefinedb'.contains(), true);
