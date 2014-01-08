@@ -2,6 +2,15 @@
 if (!String.prototype.contains) {
 	(function() {
 		'use strict'; // needed to support `apply`/`call` with `undefined`/`null`
+		var defineProperty = (function() {
+			// IE 8 only supports `Object.defineProperty` on DOM elements
+			try {
+				var object = {};
+				var $defineProperty = Object.defineProperty;
+				var result = $defineProperty(object, object, object) && $defineProperty;
+			} catch(error) {}
+			return result;
+		}());
 		var indexOf = ''.indexOf;
 		var contains = function(search) {
 			if (this == null) {
@@ -24,8 +33,8 @@ if (!String.prototype.contains) {
 			}
 			return indexOf.call(string, searchString, pos) != -1;
 		};
-		if (Object.defineProperty) {
-			Object.defineProperty(String.prototype, 'contains', {
+		if (defineProperty) {
+			defineProperty(String.prototype, 'contains', {
 				'value': contains,
 				'configurable': true,
 				'writable': true
