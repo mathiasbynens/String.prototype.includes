@@ -2,6 +2,7 @@
 if (!String.prototype.contains) {
 	(function() {
 		'use strict'; // needed to support `apply`/`call` with `undefined`/`null`
+		var toString = {}.toString;
 		var defineProperty = (function() {
 			// IE 8 only supports `Object.defineProperty` on DOM elements
 			try {
@@ -17,6 +18,9 @@ if (!String.prototype.contains) {
 				throw TypeError();
 			}
 			var string = String(this);
+			if (search && toString.call(search) == '[object RegExp]') {
+				throw TypeError();
+			}
 			var stringLength = string.length;
 			var searchString = String(search);
 			var searchLength = searchString.length;
