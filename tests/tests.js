@@ -74,11 +74,11 @@ assertEquals('abc123def'.contains(9, 5), false);
 assertEquals('abc123def'.contains(9, +Infinity), false);
 
 assertEquals('foo[a-z]+(bar)?'.contains('[a-z]+'), true);
-assertEquals('foo[a-z]+(bar)?'.contains(/[a-z]+/), false);
-assertEquals('foo/[a-z]+/(bar)?'.contains(/[a-z]+/), true);
+assertThrows(function() { 'foo[a-z]+(bar)?'.contains(/[a-z]+/); }, TypeError);
+assertThrows(function() { 'foo/[a-z]+/(bar)?'.contains(/[a-z]+/); }, TypeError);
 assertEquals('foo[a-z]+(bar)?'.contains('(bar)?'), true);
-assertEquals('foo[a-z]+(bar)?'.contains(/(bar)?/), false);
-assertEquals('foo[a-z]+/(bar)?/'.contains(/(bar)?/), true);
+assertThrows(function() { 'foo[a-z]+(bar)?'.contains(/(bar)?/); }, TypeError);
+assertThrows(function() { 'foo[a-z]+/(bar)?/'.contains(/(bar)?/); }, TypeError);
 
 // http://mathiasbynens.be/notes/javascript-unicode#poo-test
 var string = 'I\xF1t\xEBrn\xE2ti\xF4n\xE0liz\xE6ti\xF8n\u2603\uD83D\uDCA9';
@@ -101,6 +101,8 @@ assertEquals(String.prototype.contains.call(42, '2', 4), false);
 assertEquals(String.prototype.contains.call({ 'toString': function() { return 'abc'; } }, 'b', 0), true);
 assertEquals(String.prototype.contains.call({ 'toString': function() { return 'abc'; } }, 'b', 1), true);
 assertEquals(String.prototype.contains.call({ 'toString': function() { return 'abc'; } }, 'b', 2), false);
+assertThrows(function() { String.prototype.contains.call({ 'toString': function() { throw RangeError(); } }, /./); }, RangeError);
+assertThrows(function() { String.prototype.contains.call({ 'toString': function() { return 'abc'; } }, /./); }, TypeError);
 
 assertThrows(function() { String.prototype.contains.apply(undefined); }, TypeError);
 assertThrows(function() { String.prototype.contains.apply(undefined, ['b']); }, TypeError);
@@ -114,3 +116,5 @@ assertEquals(String.prototype.contains.apply(42, ['2', 4]), false);
 assertEquals(String.prototype.contains.apply({ 'toString': function() { return 'abc'; } }, ['b', 0]), true);
 assertEquals(String.prototype.contains.apply({ 'toString': function() { return 'abc'; } }, ['b', 1]), true);
 assertEquals(String.prototype.contains.apply({ 'toString': function() { return 'abc'; } }, ['b', 2]), false);
+assertThrows(function() { String.prototype.contains.apply({ 'toString': function() { throw RangeError(); } }, [/./]); }, RangeError);
+assertThrows(function() { String.prototype.contains.apply({ 'toString': function() { return 'abc'; } }, [/./]); }, TypeError);
