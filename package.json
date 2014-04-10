@@ -1,6 +1,6 @@
 {
 	"name": "string.prototype.contains",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "A robust & optimized `String.prototype.contains` polyfill, based on the ECMAScript 6 specification.",
 	"homepage": "http://mths.be/contains",
 	"main": "contains.js",

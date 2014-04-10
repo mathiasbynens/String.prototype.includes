@@ -1,4 +1,4 @@
-/*! http://mths.be/contains v0.1.0 by @mathias */
+/*! http://mths.be/contains v0.2.0 by @mathias */
 if (!String.prototype.contains) {
 	(function() {
 		'use strict'; // needed to support `apply`/`call` with `undefined`/`null`
