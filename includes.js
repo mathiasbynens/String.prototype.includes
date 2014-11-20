@@ -1,4 +1,4 @@
-/*! https://mths.be/includes v0.2.0 by @mathias */
+/*! https://mths.be/includes v1.0.0 by @mathias */
 if (!String.prototype.includes) {
 	(function() {
 		'use strict'; // needed to support `apply`/`call` with `undefined`/`null`
