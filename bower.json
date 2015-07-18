@@ -1,0 +1,25 @@
+{
+  "name": "String.prototype.includes",
+  "version": "1.0.0",
+  "homepage": "https://github.com/process-street/String.prototype.includes",
+  "authors": [
+    "Mathias Bynens <hai@mths.be>"
+  ],
+  "description": "A robust & optimized ES3-compatible polyfill for the `String.prototype.includes` method in ECMAScript 6.",
+  "main": "includes.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "string",
+    "includes"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
