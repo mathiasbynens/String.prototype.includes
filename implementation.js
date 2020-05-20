@@ -15,7 +15,9 @@ var indexOf = callBound('String.prototype.indexOf');
 module.exports = function includes(searchString) {
 	var O = RequireObjectCoercible(this);
 	var S = ToString(O);
-	if (IsRegExp(searchString)) throw TypeError();
+	if (IsRegExp(searchString)) {
+		throw TypeError('Argument to String.prototype.includes cannot be a RegExp');
+	}
 	var searchStr = String(searchString);
 	var searchLength = searchStr.length;
 	var position = arguments.length > 1 ? arguments[1] : undefined;
