@@ -2,7 +2,7 @@ var assert = require('assert');
 var assertEquals = assert.equal;
 var assertThrows = assert['throws'];
 
-require('../includes.js');
+require('../auto.js');
 
 Object.prototype[1] = 2; // try to break `arguments[1]`
 
