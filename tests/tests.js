@@ -1,14 +1,12 @@
 'use strict';
 
+var mockProperty = require('mock-property');
+
 function fakeArg(fn) {
 	return function (st) {
-		try {
-			// eslint-disable-next-line no-extend-native
-			Object.prototype[1] = 2; // try to break `arguments[1]`
-			fn(st);
-		} finally {
-			delete Object.prototype[1];
-		}
+		// try to break `arguments[1]`
+		st.teardown(mockProperty(Object.prototype, 1, { value: 2 }));
+		return fn(st);
 	};
 }
 
