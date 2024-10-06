@@ -33,6 +33,7 @@
 		"pretest": "es-shim-api --bound",
 		"test": "npm run tests-only",
 		"tests-only": "tape 'tests/*.js'",
+		"posttest": "npx npm@'>=10.2' audit --production",
 		"cover": "istanbul cover --report html --verbose --dir coverage tape 'tests/*.js'"
 	},
 	"dependencies": {
