@@ -1,8 +1,9 @@
 'use strict';
 
 function fakeArg(fn) {
-	return function(st) {
+	return function (st) {
 		try {
+			// eslint-disable-next-line no-extend-native
 			Object.prototype[1] = 2; // try to break `arguments[1]`
 			fn(st);
 		} finally {
@@ -11,8 +12,8 @@ function fakeArg(fn) {
 	};
 }
 
-module.exports = function(includes, t) {
-	t.test('cast searchString arg', fakeArg(function(st) {
+module.exports = function (includes, t) {
+	t.test('cast searchString arg', fakeArg(function (st) {
 		st.equals(includes('abc'), false);
 		st.equals(includes('aundefinedb'), true);
 		st.equals(includes('abc', undefined), false);
@@ -26,7 +27,7 @@ module.exports = function(includes, t) {
 		st.end();
 	}));
 
-	t.test('basic support', fakeArg(function(st) {
+	t.test('basic support', fakeArg(function (st) {
 		st.equals(includes('abc', 'abc'), true);
 		st.equals(includes('abc', 'def'), false);
 		st.equals(includes('abc', ''), true);
@@ -36,7 +37,7 @@ module.exports = function(includes, t) {
 		st.end();
 	}));
 
-	t.test('pos argument', function(st) {
+	t.test('pos argument', function (st) {
 		st.equals(includes('abc', 'b', -Infinity), true);
 		st.equals(includes('abc', 'b', -1), true);
 		st.equals(includes('abc', 'b', -0), true);
@@ -50,11 +51,11 @@ module.exports = function(includes, t) {
 		st.equals(includes('abc', 'b', 2), false);
 		st.equals(includes('abc', 'b', 3), false);
 		st.equals(includes('abc', 'b', 4), false);
-		st.equals(includes('abc', 'b', +Infinity), false);
+		st.equals(includes('abc', 'b', Number(Infinity)), false);
 		st.end();
 	});
 
-	t.test('cast stringSearch arg with pos - included', function(st) {
+	t.test('cast stringSearch arg with pos - included', function (st) {
 		st.equals(includes('abc123def', 1, -Infinity), true);
 		st.equals(includes('abc123def', 1, -1), true);
 		st.equals(includes('abc123def', 1, -0), true);
@@ -69,11 +70,11 @@ module.exports = function(includes, t) {
 		st.equals(includes('abc123def', 1, 3), true);
 		st.equals(includes('abc123def', 1, 4), false);
 		st.equals(includes('abc123def', 1, 5), false);
-		st.equals(includes('abc123def', 1, +Infinity), false);
+		st.equals(includes('abc123def', 1, Number(Infinity)), false);
 		st.end();
 	});
 
-	t.test('cast stringSearch arg with pos - not included', function(st) {
+	t.test('cast stringSearch arg with pos - not included', function (st) {
 		st.equals(includes('abc123def', 9, -Infinity), false);
 		st.equals(includes('abc123def', 9, -1), false);
 		st.equals(includes('abc123def', 9, -0), false);
@@ -88,21 +89,21 @@ module.exports = function(includes, t) {
 		st.equals(includes('abc123def', 9, 3), false);
 		st.equals(includes('abc123def', 9, 4), false);
 		st.equals(includes('abc123def', 9, 5), false);
-		st.equals(includes('abc123def', 9, +Infinity), false);
+		st.equals(includes('abc123def', 9, Number(Infinity)), false);
 		st.end();
 	});
 
-	t.test('regex searchString', function(st) {
+	t.test('regex searchString', function (st) {
 		st.equals(includes('foo[a-z]+(bar)?', '[a-z]+'), true);
-		st['throws'](function() { includes('foo[a-z]+(bar)?', /[a-z]+/); }, TypeError);
-		st['throws'](function() { includes('foo/[a-z]+/(bar)?', /[a-z]+/); }, TypeError);
+		st['throws'](function () { includes('foo[a-z]+(bar)?', /[a-z]+/); }, TypeError);
+		st['throws'](function () { includes('foo/[a-z]+/(bar)?', /[a-z]+/); }, TypeError);
 		st.equals(includes('foo[a-z]+(bar)?', '(bar)?'), true);
-		st['throws'](function() { includes('foo[a-z]+(bar)?', /(bar)?/); }, TypeError);
-		st['throws'](function() { includes('foo[a-z]+/(bar)?/', /(bar)?/); }, TypeError);
+		st['throws'](function () { includes('foo[a-z]+(bar)?', /(bar)?/); }, TypeError);
+		st['throws'](function () { includes('foo[a-z]+/(bar)?/', /(bar)?/); }, TypeError);
 		st.end();
 	});
 
-	t.test('astral symbols', function(st) {
+	t.test('astral symbols', function (st) {
 		// https://mathiasbynens.be/notes/javascript-unicode#poo-test
 		var string = 'I\xF1t\xEBrn\xE2ti\xF4n\xE0liz\xE6ti\xF8n\u2603\uD83D\uDCA9';
 		st.equals(string.includes(''), true);
@@ -114,25 +115,25 @@ module.exports = function(includes, t) {
 		st.end();
 	});
 
-	t.test('nullish this object', function(st) {
-		st['throws'](function() { includes(undefined); }, TypeError);
-		st['throws'](function() { includes(undefined, 'b'); }, TypeError);
-		st['throws'](function() { includes(undefined, 'b', 4); }, TypeError);
-		st['throws'](function() { includes(null); }, TypeError);
-		st['throws'](function() { includes(null, 'b'); }, TypeError);
-		st['throws'](function() { includes(null, 'b', 4); }, TypeError);
+	t.test('nullish this object', function (st) {
+		st['throws'](function () { includes(undefined); }, TypeError);
+		st['throws'](function () { includes(undefined, 'b'); }, TypeError);
+		st['throws'](function () { includes(undefined, 'b', 4); }, TypeError);
+		st['throws'](function () { includes(null); }, TypeError);
+		st['throws'](function () { includes(null, 'b'); }, TypeError);
+		st['throws'](function () { includes(null, 'b', 4); }, TypeError);
 		st.end();
 	});
 
-	t.test('cast this object', function(st) {
+	t.test('cast this object', function (st) {
 		st.equals(includes(42, '2'), true);
 		st.equals(includes(42, 'b', 4), false);
 		st.equals(includes(42, '2', 4), false);
-		st.equals(includes({ 'toString': function() { return 'abc'; } }, 'b', 0), true);
-		st.equals(includes({ 'toString': function() { return 'abc'; } }, 'b', 1), true);
-		st.equals(includes({ 'toString': function() { return 'abc'; } }, 'b', 2), false);
-		st['throws'](function() { includes({ 'toString': function() { throw RangeError(); } }, /./); }, RangeError);
-		st['throws'](function() { includes({ 'toString': function() { return 'abc'; } }, /./); }, TypeError);
+		st.equals(includes({ toString: function () { return 'abc'; } }, 'b', 0), true);
+		st.equals(includes({ toString: function () { return 'abc'; } }, 'b', 1), true);
+		st.equals(includes({ toString: function () { return 'abc'; } }, 'b', 2), false);
+		st['throws'](function () { includes({ toString: function () { throw new RangeError(); } }, /./); }, RangeError);
+		st['throws'](function () { includes({ toString: function () { return 'abc'; } }, /./); }, TypeError);
 		st.end();
 	});
 };

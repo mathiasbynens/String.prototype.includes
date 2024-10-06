@@ -2,7 +2,7 @@
 
 'use strict';
 
-var callBound = require('call-bind/callBound')
+var callBound = require('call-bind/callBound');
 var RequireObjectCoercible = require('es-abstract/2024/RequireObjectCoercible');
 var ToString = require('es-abstract/2024/ToString');
 var ToIntegerOrInfinity = require('es-abstract/2024/ToIntegerOrInfinity');
@@ -16,7 +16,7 @@ module.exports = function includes(searchString) {
 	var O = RequireObjectCoercible(this);
 	var S = ToString(O);
 	if (IsRegExp(searchString)) {
-		throw TypeError('Argument to String.prototype.includes cannot be a RegExp');
+		throw new TypeError('Argument to String.prototype.includes cannot be a RegExp');
 	}
 	var searchStr = String(searchString);
 	var searchLength = searchStr.length;
@@ -28,5 +28,5 @@ module.exports = function includes(searchString) {
 	if (searchLength + start > len) {
 		return false;
 	}
-	return indexOf(S, searchStr, pos) != -1;
+	return indexOf(S, searchStr, pos) !== -1;
 };
