@@ -46,5 +46,8 @@
 		"functions-have-names": "^1.2.1",
 		"istanbul": "^0.4.5",
 		"tape": "^5.0.0"
+	},
+	"engines": {
+		"node": ">= 0.4"
 	}
 }
